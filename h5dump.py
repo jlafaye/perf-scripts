@@ -47,16 +47,16 @@ def trace_begin():
     # print "+++ in trace_begin"
     import sys
     if len(sys.argv) < 2:
-        print "(EE) missing filename"
+        print("(EE) missing filename")
         sys.exit(1)
     filename = sys.argv[1]
 
 def trace_end():
-    print "+++ opening file '%s'" % filename
+    print("+++ opening file '%s'" % filename)
     store = pt.HDFStore(filename)
     for event_name in events:
-        print "+++ adding group for event '%s': %d entry(ies) found" \
-            % (event_name, len(events[event_name]))
+        print("+++ adding group for event '%s': %d entry(ies) found" \
+            % (event_name, len(events[event_name])))
 
         # enrich data with a timestamp that will
         # be used as index. We don't use python
@@ -83,11 +83,11 @@ def trace_end():
 
             # change type if necessary
             if df[col].dtype != dstType:
-                print "   %s: changing col '%s' type %s->%s" % (event_name, col, str(df[col].dtype), str(dstType))
+                print("   %s: changing col '%s' type %s->%s" % (event_name, col, str(df[col].dtype), str(dstType)))
                 df[col] = df[col].astype(dstType) 
 
-        print "+++ storing dataframe, event:%s size:%d columns:%s" % (event_name, df.shape[0], ",".join(df.columns))
-        # print df.head()
+        print("+++ storing dataframe, event:%s size:%d columns:%s" % (event_name, df.shape[0], ",".join(df.columns)))
+        print(df.head())
         store[event_name] = df
     store.close()
 
@@ -96,3 +96,7 @@ def trace_end():
 def trace_unhandled(event_name, context, event_fields_dict):
     events.setdefault(event_name, []).append(copy.deepcopy(event_fields_dict))
 
+
+# if __name__ == '__main__':
+#print('This script is supposed to be loaded by perf and and run directly')
+#    print('Usage: perf script -s h5dump.py <filename>')

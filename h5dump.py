@@ -14,12 +14,12 @@ import pandas as pd
 import pandas.io.pytables as pt
 import numpy as np
 
+sys.path.append(os.environ['PERF_EXEC_PATH'] +
+                '/scripts/python/Perf-Trace-Util/lib/Perf/Trace') # noqa
+
 from perf_trace_context import * # noqa
 from Core import *  # noqa
 import logging
-
-sys.path.append(os.environ['PERF_EXEC_PATH'] +
-                '/scripts/python/Perf-Trace-Util/lib/Perf/Trace')
 
 events = {}
 filename = None
